@@ -42,32 +42,60 @@ function Dashboard() {
     async function fetchData() {
       if (!token) return;
       
+      // try {
+      //   const bookingsRes = await fetch('http://localhost:5001/api/bookings', {
+      //     headers: { 'Authorization': `Bearer ${token}` }
+      //   });
+      //   const bookingsData = await bookingsRes.json();
+      //   setBookings(bookingsData.bookings || []);
+
+      //   const favoritesRes = await fetch('http://localhost:5001/api/favorites', {
+      //     headers: { 'Authorization': `Bearer ${token}` }
+      //   });
+      //   const favoritesData = await favoritesRes.json();
+      //   setFavorites(favoritesData.favorites || []);
+
+      //   if (user?.role === 'admin') {
+      //     const usersRes = await fetch('http://localhost:5001/api/auth/users', {
+      //       headers: { 'Authorization': `Bearer ${token}` }
+      //     });
+      //     const usersData = await usersRes.json();
+          
+      //     const destRes = await fetch('http://localhost:5001/api/destinations');
+      //     const destData = await destRes.json();
+          
+      //     const myDestRes = await fetch('http://localhost:5001/api/destinations');
+      //     const myDestData = await myDestRes.json();
+          
+      //     const allBookingsRes = await fetch('http://localhost:5001/api/bookings', {
+      //       headers: { 'Authorization': `Bearer ${token}` }
+      //     });
       try {
-        const bookingsRes = await fetch('http://localhost:5001/api/bookings', {
+        const bookingsRes = await fetch('https://yeshi-app-backend.vercel.app/api/bookings', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const bookingsData = await bookingsRes.json();
         setBookings(bookingsData.bookings || []);
 
-        const favoritesRes = await fetch('http://localhost:5001/api/favorites', {
+        const favoritesRes = await fetch('https://yeshi-app-backend.vercel.app/api/favorites', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const favoritesData = await favoritesRes.json();
         setFavorites(favoritesData.favorites || []);
 
         if (user?.role === 'admin') {
-          const usersRes = await fetch('http://localhost:5001/api/auth/users', {
+          const usersRes = await fetch('https://yeshi-app-backend.vercel.app/api/auth/users', {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           const usersData = await usersRes.json();
           
-          const destRes = await fetch('http://localhost:5001/api/destinations');
+          const destRes = await fetch('https://yeshi-app-backend.vercel.app/api/destinations');
           const destData = await destRes.json();
           
-          const myDestRes = await fetch('http://localhost:5001/api/destinations');
+          const myDestRes = await fetch('https://yeshi-app-backend.vercel.app/api/destinations');
           const myDestData = await myDestRes.json();
           
-          const allBookingsRes = await fetch('http://localhost:5001/api/bookings', {
+          const allBookingsRes = await fetch('https://yeshi-app-backend.vercel.app/api/bookings', {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           const allBookingsData = await allBookingsRes.json();
@@ -94,7 +122,8 @@ function Dashboard() {
     if (!confirm('Are you sure you want to delete this destination?')) return;
     
     try {
-      const response = await fetch(`http://localhost:5001/api/destinations/${destinationId}`, {
+      // const response = await fetch(`http://localhost:5001/api/destinations/${destinationId}`, {
+        const response = await fetch(`https://yeshi-app-backend.vercel.app/api/destinations/${destinationId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import axios from "axios";
 
-const API_URL = 'http://localhost:5001/api';
+// const API_URL = 'http://localhost:5001/api';
+const API_URL = 'https://yeshi-app-backend.vercel.app/api';
 
 function AdminAddDestination() {
   const { token, user } = useAuth();

@@ -46,7 +46,8 @@ function AddProduct() {
     setSuccess("");
 
     try {
-      const response = await fetch("http://localhost:5001/api/products", {
+      // const response = await fetch("http://localhost:5001/api/products" 
+      const response = await fetch("https://yeshi-app-backend.vercel.app/api/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
