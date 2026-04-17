@@ -7,6 +7,7 @@ import authRoutes from './routes/authRoutes.js';
 import destinationRoutes from './routes/destinationRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
 import favoriteRoutes from './routes/favoriteRoutes.js';
+import productRoutes from './routes/productRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
@@ -49,7 +50,7 @@ const limiter = rateLimit({
 });
 
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 2 * 60 * 1000, // 2 minutes
   max: 20,
   message: { message: 'Too many authentication attempts, please try again later.' },
 });
@@ -61,6 +62,7 @@ app.use("/api/auth", authLimiter, authRoutes);
 app.use("/api/destinations", destinationRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/favorites", favoriteRoutes);
+app.use("/api/products", productRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {
@@ -81,6 +83,7 @@ app.get("/", (req, res) => {
       destinations: "/api/destinations",
       bookings: "/api/bookings",
       favorites: "/api/favorites",
+      products: "/api/products",
       health: "/api/health"
     }
   });

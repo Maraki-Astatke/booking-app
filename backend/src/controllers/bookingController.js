@@ -33,16 +33,34 @@ export async function createBooking(req, res) {
 export async function getUserBookings(req, res) {
   try {
     const user_id = req.user.id;
+    const user_role = req.user.role;
+    
+    let query;
+    let params;
+    
+    // If admin, get all bookings from all users
+    if (user_role === 'admin') {
+      query = `
+        SELECT b.*, d.title, d.location, d.image_url, u.full_name as user_name
+        FROM bookings b
+        JOIN destinations d ON b.destination_id = d.id
+        JOIN users u ON b.user_id = u.id
+        ORDER BY b.created_at DESC
+      `;
+      params = [];
+    } else {
+      // Regular user - get only their bookings
+      query = `
+        SELECT b.*, d.title, d.location, d.image_url 
+        FROM bookings b
+        JOIN destinations d ON b.destination_id = d.id
+        WHERE b.user_id = $1
+        ORDER BY b.created_at DESC
+      `;
+      params = [user_id];
+    }
 
-    const result = await pool.query(
-      `SELECT b.*, d.title, d.location, d.image_url 
-       FROM bookings b
-       JOIN destinations d ON b.destination_id = d.id
-       WHERE b.user_id = $1 AND b.status != 'cancelled'
-       ORDER BY b.created_at DESC`,
-      [user_id]
-    );
-
+    const result = await pool.query(query, params);
     res.json({ bookings: result.rows });
   } catch (error) {
     console.error(error);

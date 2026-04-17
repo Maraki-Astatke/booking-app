@@ -9,6 +9,9 @@ import AdminAddDestination from "./pages/AdminAddDestination";
 import FAQ from "./pages/FAQ";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Marketplace from "./pages/Marketplace";
+import AddProduct from "./pages/AddProduct";
+import AdminProducts from "./pages/AdminProducts";
 
 function App() {
   return (
@@ -20,11 +23,28 @@ function App() {
       <Route path="/destination/:id" element={<DestinationDetail />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/marketplace" element={<Marketplace />} />
       <Route
         path="/dashboard"
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/add-product"
+        element={
+          <ProtectedRoute>
+            <AddProduct />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/products"
+        element={
+          <ProtectedRoute>
+            <AdminProducts />
           </ProtectedRoute>
         }
       />

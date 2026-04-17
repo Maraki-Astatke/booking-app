@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "destinations": "Destinations",
+    "testimonials": "Testimonials",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Register",
+    "explore": "Explore",
+    "dashboard": "Dashboard"
+  },
+  "hero": {
+    "badge": "🇪🇹 Discover the Hidden Gem of Africa",
+    "title": "Explore",
+    "titleHighlight": "Ethiopia",
+    "subtitle": "From ancient rock churches to breathtaking landscapes, experience the magic of Ethiopia's rich culture and history.",
+    "exploreBtn": "Explore Destinations",
+    "getStartedBtn": "Get Started"
+  },
+  "features": {
+    "title": "Why Choose MakiTravel?",
+    "subtitle": "We provide the best travel experience with our premium services",
+    "bestPrices": "Best Prices",
+    "bestPricesDesc": "Get the best deals on flights and accommodations worldwide",
+    "qualityHotels": "Quality Hotels",
+    "qualityHotelsDesc": "Hand-picked hotels with excellent service and amenities",
+    "support247": "24/7 Support",
+    "support247Desc": "Round-the-clock customer support for all your travel needs",
+    "secureBooking": "Secure Booking",
+    "secureBookingDesc": "Safe and secure payment methods with full protection"
+  },
+  "destinations": {
+    "title": "Popular Ethiopian Destinations",
+    "subtitle": "Discover the most breathtaking places in Ethiopia",
+    "bookNow": "Book Now"
+  },
+  "testimonials": {
+    "title": "What Our Travelers Say",
+    "subtitle": "Real experiences from real travelers"
+  },
+  "cta": {
+    "title": "Ready to Explore Ethiopia?",
+    "subtitle": "Join thousands of happy travelers who have explored amazing destinations with MakiTravel",
+    "createAccount": "Create Account",
+    "signIn": "Sign In",
+    "exploreNow": "Explore Now"
+  },
+  "footer": {
+    "tagline": "Your trusted partner for unforgettable Ethiopian travel experiences.",
+    "quickLinks": "Quick Links",
+    "support": "Support",
+    "followUs": "Follow Us",
+    "faq": "FAQ",
+    "privacy": "Privacy Policy",
+    "rights": "All rights reserved"
+  }
+}

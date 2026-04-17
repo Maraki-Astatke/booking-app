@@ -65,6 +65,7 @@ export async function registerUser(req, res) {
       verificationToken,
     });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ message: "Server error" });
   }
 }
@@ -97,6 +98,7 @@ export async function verifyEmail(req, res) {
 
     return res.status(200).json({ message: "Email verified successfully" });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ message: "Server error" });
   }
 }
@@ -146,6 +148,7 @@ export async function loginUser(req, res) {
       },
     });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ message: "Server error" });
   }
 }
@@ -164,6 +167,17 @@ export async function getCurrentUser(req, res) {
 
     return res.status(200).json({ user: result.rows[0] });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ message: "Server error" });
+  }
+}
+
+export async function getTotalUsers(req, res) {
+  try {
+    const result = await pool.query('SELECT COUNT(*) FROM users');
+    res.json({ count: parseInt(result.rows[0].count) });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 }
