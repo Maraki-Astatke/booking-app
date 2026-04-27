@@ -12,7 +12,6 @@ import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
 
-// Security middleware
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" },
   contentSecurityPolicy: {
@@ -25,23 +24,36 @@ app.use(helmet({
   },
 }));
 
-// CORS configuration
-// CORS configuration
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://localhost:5001',
+  process.env.CLIENT_URL,
+  process.env.FRONTEND_URL,
+  process.env.RAILWAY_URL
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: ['http://localhost:5173'],
+    origin: function(origin, callback) {
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   })
 );
 
-// Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-// Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -51,21 +63,19 @@ const limiter = rateLimit({
 });
 
 const authLimiter = rateLimit({
-  windowMs: 2 * 60 * 1000, // 2 minutes
+  windowMs: 2 * 60 * 1000,
   max: 20,
   message: { message: 'Too many authentication attempts, please try again later.' },
 });
 
 app.use(limiter);
 
-// Routes
 app.use("/api/auth", authLimiter, authRoutes);
 app.use("/api/destinations", destinationRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/favorites", favoriteRoutes);
 app.use("/api/products", productRoutes);
 
-// Health check endpoint
 app.get("/api/health", (req, res) => {
   res.status(200).json({ 
     status: 'OK', 
@@ -74,7 +84,6 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Root endpoint
 app.get("/", (req, res) => {
   res.json({ 
     message: "Tourism Booking API",
@@ -90,12 +99,10 @@ app.get("/", (req, res) => {
   });
 });
 
-// 404 handler for undefined routes
 app.use((req, res) => {
   res.status(404).json({ message: `Route ${req.originalUrl} not found` });
 });
 
-// Global error handler
 app.use(errorHandler);
 
 export default app;
