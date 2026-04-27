@@ -46,7 +46,8 @@ function AddProduct() {
     setSuccess("");
 
     try {
-      const response = await fetch("http://localhost:5001/api/products" 
+      // const response = await fetch("http://localhost:5001/api/products" 
+      const response = await fetch("https://booking-production-a1ed.up.railway.app/api/products"
   , {
         method: "POST",
         headers: {

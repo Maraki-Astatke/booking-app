@@ -23,7 +23,8 @@ function AdminProducts() {
 
   async function fetchPendingProducts() {
     try {
-      const response = await fetch("http://localhost:5001/api/products/pending", {
+      // const response = await fetch("http://localhost:5001/api/products/pending", {
+      const response = await fetch("https://booking-production-a1ed.up.railway.app/api/products/pending",{
    
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -38,7 +39,8 @@ function AdminProducts() {
 
   async function handleApprove(productId) {
     try {
-      const response = await fetch(`http://localhost:5001/api/products/${productId}/approve`, {
+      // const response = await fetch(`http://localhost:5001/api/products/${productId}/approve`, {
+      const response = await fetch(`https://booking-production-a1ed.up.railway.app/api/products/${productId}/approve`, {
     
         method: "PUT",
         headers: { 'Authorization': `Bearer ${token}` }
@@ -58,7 +60,8 @@ function AdminProducts() {
     if (!confirm("Are you sure you want to reject this product?")) return;
     
     try {
-      const response = await fetch(`http://localhost:5001/api/products/${productId}/reject`, {
+      // const response = await fetch(`http://localhost:5001/api/products/${productId}/reject`, {
+      const response = await fetch(`https://booking-production-a1ed.up.railway.app/api/products/${productId}/reject`, {
       
         method: "DELETE",
         headers: { 'Authorization': `Bearer ${token}` }

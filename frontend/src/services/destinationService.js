@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const API_URL = 'http://localhost:5001/api';
-const API_URL = 'https://yeshi-app-backend.vercel.app/api';
+const API_URL = 'https://booking-production-a1ed.up.railway.app/api';
 
 const api = axios.create({
   baseURL: API_URL,

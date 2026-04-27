@@ -25,7 +25,8 @@ function Marketplace() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const res = await fetch("http://localhost:5001/api/products");
+        // const res = await fetch("http://localhost:5001/api/products");
+        const res = await fetch("https://booking-production-a1ed.up.railway.app/api/products");
        
         const data = await res.json();
         setProducts(data.products || []);
