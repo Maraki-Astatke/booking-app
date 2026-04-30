@@ -13,7 +13,6 @@ import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
 
-// Trust proxy - required for Railway (fixes rate limiter warning)
 app.set('trust proxy', 1);
 
 app.use(helmet({
