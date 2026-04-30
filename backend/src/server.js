@@ -1,12 +1,10 @@
-import pg from 'pg';
-import dotenv from 'dotenv';
-
+import dotenv from "dotenv";
 dotenv.config();
 
-const { Pool } = pg;
+import app from "./app.js";
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+const PORT = process.env.PORT || 5001;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
-
-export default pool;
