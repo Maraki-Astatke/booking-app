@@ -10,7 +10,7 @@ import {
 
 export async function registerUser(req, res) {
   try {
-      console.log("register route hit", req.body);
+    console.log("register route hit", req.body);
     const fullName = sanitizeInput(req.body.fullName);
     const username = sanitizeInput(req.body.username);
     const email = sanitizeEmail(req.body.email);
@@ -59,14 +59,18 @@ export async function registerUser(req, res) {
       ]
     );
 
+    // Generate JWT token for auto-login after registration
+    const token = generateToken(result.rows[0]);
+
     return res.status(201).json({
       message: "User registered successfully. Please verify your email.",
+      token: token,
       user: result.rows[0],
       verificationToken,
     });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Server error" });
+    console.error("Registration error:", error);
+    return res.status(500).json({ message: "Server error: " + error.message });
   }
 }
 
@@ -128,10 +132,6 @@ export async function loginUser(req, res) {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-
-    // if (!user.is_verified) {
-    //   return res.status(403).json({ message: "Please verify your email first" });
-    // }
 
     const token = generateToken(user);
 
