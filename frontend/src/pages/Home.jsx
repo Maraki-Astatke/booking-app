@@ -14,12 +14,12 @@ import demeraImage from "../assets/demera.jpg";
 import lalibelaImage from "../assets/lalibela.jpg";
 import ethiopiaVideo from "../assets/video.mp4";
 
+import afarrImage from "../assets/afarr.jpg";
 import deseImage from "../assets/dese.jpg";
 import gonderImage from "../assets/gonder.jpg";
 import langanoImage from "../assets/langano.jpg";
-import hawassaImage from "../assets/hawassa.jpg";
-import eritreaImage from "../assets/eritrea.jpg";
-import afarrImage from "../assets/afarr.jpg"
+import hawassaImage from "../assets/Hawassa.jpg";
+import eritreaImage from "../assets/Eritrea.jpg";
 
 function Home() {
   const { t } = useTranslation();
@@ -478,7 +478,7 @@ function Home() {
               <div className="flex-shrink-0 w-72 sm:w-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
                 <img 
                   src={afarrImage}
-                  alt="Afar Depression"
+                  alt="Afarr Depression"
                   className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="p-3 bg-white dark:bg-slate-900">
