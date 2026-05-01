@@ -138,7 +138,7 @@ function FAQ() {
               </Button>
             </a>
             <Link to="/">
-              <Button variant="outline" className="border-white text-white hover:bg-white hover:text-emerald-600 rounded-xl">
+              <Button variant="outline" className="border-white text-emerald-600 hover:bg-white hover:text-emerald-600 rounded-xl">
                 🌍 Explore Destinations
               </Button>
             </Link>

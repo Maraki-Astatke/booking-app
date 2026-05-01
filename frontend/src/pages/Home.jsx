@@ -14,6 +14,13 @@ import demeraImage from "../assets/demera.jpg";
 import lalibelaImage from "../assets/lalibela.jpg";
 import ethiopiaVideo from "../assets/video.mp4";
 
+import deseImage from "../assets/dese.jpg";
+import gonderImage from "../assets/gonder.jpg";
+import langanoImage from "../assets/langano.jpg";
+import hawassaImage from "../assets/hawassa.jpg";
+import eritreaImage from "../assets/eritrea.jpg";
+import afarrImage from "../assets/afarr.jpg"
+
 function Home() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -447,6 +454,111 @@ function Home() {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Gallery Section - Scrollable */}
+      <div id="gallery" className="bg-white dark:bg-slate-950 py-12 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
+              Ethiopian Places Gallery
+            </h2>
+            <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto mb-4"></div>
+            <p className="text-gray-500 dark:text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4">
+              Discover the most breathtaking places across Ethiopia
+            </p>
+          </div>
+
+          {/* Scrollable Gallery */}
+          <div className="relative">
+            <div className="flex overflow-x-auto gap-4 pb-4">
+              {/* Afar */}
+              <div className="flex-shrink-0 w-72 sm:w-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+                <img 
+                  src={afarrImage}
+                  alt="Afar Depression"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="p-3 bg-white dark:bg-slate-900">
+                  <h3 className="font-semibold text-gray-800 dark:text-white">Afar Depression</h3>
+                  <p className="text-xs text-gray-500">Afar, Ethiopia</p>
+                </div>
+              </div>
+
+              {/* Dese */}
+              <div className="flex-shrink-0 w-72 sm:w-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+                <img 
+                  src={deseImage}
+                  alt="Dese"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="p-3 bg-white dark:bg-slate-900">
+                  <h3 className="font-semibold text-gray-800 dark:text-white">Dese</h3>
+                  <p className="text-xs text-gray-500">Dese, Ethiopia</p>
+                </div>
+              </div>
+
+              {/* Gonder */}
+              <div className="flex-shrink-0 w-72 sm:w-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+                <img 
+                  src={gonderImage}
+                  alt="Gonder Castles"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="p-3 bg-white dark:bg-slate-900">
+                  <h3 className="font-semibold text-gray-800 dark:text-white">Gonder</h3>
+                  <p className="text-xs text-gray-500">Gonder, Ethiopia</p>
+                </div>
+              </div>
+
+              {/* Langano */}
+              <div className="flex-shrink-0 w-72 sm:w-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+                <img 
+                  src={langanoImage}
+                  alt="Lake Langano"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="p-3 bg-white dark:bg-slate-900">
+                  <h3 className="font-semibold text-gray-800 dark:text-white">Lake Langano</h3>
+                  <p className="text-xs text-gray-500">Langano, Ethiopia</p>
+                </div>
+              </div>
+
+              {/* Hawassa */}
+              <div className="flex-shrink-0 w-72 sm:w-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+                <img 
+                  src={hawassaImage}
+                  alt="Hawassa"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="p-3 bg-white dark:bg-slate-900">
+                  <h3 className="font-semibold text-gray-800 dark:text-white">Hawassa</h3>
+                  <p className="text-xs text-gray-500">Hawassa, Ethiopia</p>
+                </div>
+              </div>
+
+              {/* Eritrea */}
+              <div className="flex-shrink-0 w-72 sm:w-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+                <img 
+                  src={eritreaImage}
+                  alt="Eritrea Border"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="p-3 bg-white dark:bg-slate-900">
+                  <h3 className="font-semibold text-gray-800 dark:text-white">Tigray - Eritrea Border</h3>
+                  <p className="text-xs text-gray-500">Northern Ethiopia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Scroll Hint */}
+          <div className="text-center mt-6">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              ← Scroll to see more →
+            </p>
           </div>
         </div>
       </div>
