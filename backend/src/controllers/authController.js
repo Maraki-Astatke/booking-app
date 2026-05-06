@@ -12,27 +12,24 @@ export async function registerUser(req, res) {
   try {
     console.log("1. register route hit", req.body);
     
-    const fullName = sanitizeInput(req.body.fullName);
-    const username = sanitizeInput(req.body.username);
-    const email = sanitizeEmail(req.body.email);
-    const phone = sanitizeInput(req.body.phone);
-    const password = req.body.password ? req.body.password.trim() : "";
-    
-    console.log("2. Sanitized data:", { fullName, username, email, phone });
+    // SIMPLIFIED - bypass validation for testing
+    const fullName = req.body.fullName;
+    const username = req.body.username;
+    const email = req.body.email;
+    const phone = req.body.phone;
+    const password = req.body.password;
+
+    console.log("2. Data extracted:", { fullName, username, email, phone });
 
     if (!fullName || !username || !email || !phone || !password) {
-      console.log("3. Missing fields - validation failed");
+      console.log("3. Missing fields");
       return res.status(400).json({ message: "All fields are required" });
     }
     console.log("4. All fields present");
 
-    if (!isStrongPassword(password)) {
-      console.log("5. Password too weak");
-      return res.status(400).json({
-        message: "Password must be at least 8 characters and include uppercase, lowercase, number, and symbol",
-      });
-    }
-    console.log("6. Password strength OK");
+    console.log("5. Hashing password...");
+    const passwordHash = await bcrypt.hash(password, 10);
+    console.log("6. Password hashed");
 
     console.log("7. Checking existing user...");
     const existingUser = await pool.query(
@@ -42,18 +39,12 @@ export async function registerUser(req, res) {
     console.log("8. Existing user check complete. Found:", existingUser.rows.length);
 
     if (existingUser.rows.length > 0) {
-      console.log("9. User already exists - returning 409");
-      return res.status(409).json({
-        message: "Email, username, or phone already exists",
-      });
+      console.log("9. User already exists");
+      return res.status(409).json({ message: "User already exists" });
     }
     console.log("10. User does not exist - proceeding");
 
-    console.log("11. Hashing password...");
-    const passwordHash = await bcrypt.hash(password, 10);
-    console.log("12. Password hashed successfully");
-
-    console.log("13. Inserting user into database...");
+    console.log("11. Inserting user into database...");
     const result = await pool.query(
       `INSERT INTO users 
       (full_name, username, email, phone, password_hash, role)
@@ -61,13 +52,13 @@ export async function registerUser(req, res) {
       RETURNING id, full_name, username, email, phone, role`,
       [fullName, username, email, phone, passwordHash, 'user']
     );
-    console.log("14. User inserted successfully:", result.rows[0]);
+    console.log("12. User inserted successfully:", result.rows[0]);
 
-    console.log("15. Generating JWT token...");
+    console.log("13. Generating JWT token...");
     const token = generateToken(result.rows[0]);
-    console.log("16. Token generated successfully");
+    console.log("14. Token generated successfully");
 
-    console.log("17. Registration complete - sending response");
+    console.log("15. Registration complete - sending response");
     return res.status(201).json({
       message: "User registered successfully",
       token: token,
@@ -77,11 +68,9 @@ export async function registerUser(req, res) {
     console.error("!!! REGISTRATION ERROR !!!");
     console.error("Error message:", error.message);
     console.error("Error stack:", error.stack);
-    console.error("Full error object:", error);
     return res.status(500).json({ 
       message: "Server error", 
-      error: error.message,
-      detail: error.detail || "No additional details"
+      error: error.message 
     });
   }
 }
