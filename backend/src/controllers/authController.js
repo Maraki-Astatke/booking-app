@@ -11,40 +11,24 @@ import {
 export async function registerUser(req, res) {
   try {
     console.log("1. register route hit", req.body);
-    
-    // SIMPLIFIED - bypass validation for testing
+
     const fullName = req.body.fullName;
     const username = req.body.username;
     const email = req.body.email;
     const phone = req.body.phone;
     const password = req.body.password;
 
-    console.log("2. Data extracted:", { fullName, username, email, phone });
+    console.log("2. Data extracted");
 
     if (!fullName || !username || !email || !phone || !password) {
-      console.log("3. Missing fields");
       return res.status(400).json({ message: "All fields are required" });
     }
-    console.log("4. All fields present");
 
-    console.log("5. Hashing password...");
+    console.log("3. Hashing password...");
     const passwordHash = await bcrypt.hash(password, 10);
-    console.log("6. Password hashed");
+    console.log("4. Password hashed");
 
-    console.log("7. Checking existing user...");
-    const existingUser = await pool.query(
-      `SELECT id FROM users WHERE email = $1 OR username = $2 OR phone = $3`,
-      [email, username, phone]
-    );
-    console.log("8. Existing user check complete. Found:", existingUser.rows.length);
-
-    if (existingUser.rows.length > 0) {
-      console.log("9. User already exists");
-      return res.status(409).json({ message: "User already exists" });
-    }
-    console.log("10. User does not exist - proceeding");
-
-    console.log("11. Inserting user into database...");
+    console.log("5. Inserting user...");
     const result = await pool.query(
       `INSERT INTO users 
       (full_name, username, email, phone, password_hash, role)
@@ -52,26 +36,19 @@ export async function registerUser(req, res) {
       RETURNING id, full_name, username, email, phone, role`,
       [fullName, username, email, phone, passwordHash, 'user']
     );
-    console.log("12. User inserted successfully:", result.rows[0]);
+    console.log("6. User inserted");
 
-    console.log("13. Generating JWT token...");
     const token = generateToken(result.rows[0]);
-    console.log("14. Token generated successfully");
+    console.log("7. Token generated");
 
-    console.log("15. Registration complete - sending response");
     return res.status(201).json({
       message: "User registered successfully",
-      token: token,
+      token,
       user: result.rows[0],
     });
   } catch (error) {
-    console.error("!!! REGISTRATION ERROR !!!");
-    console.error("Error message:", error.message);
-    console.error("Error stack:", error.stack);
-    return res.status(500).json({ 
-      message: "Server error", 
-      error: error.message 
-    });
+    console.error("!!! REGISTRATION ERROR !!!", error);
+    return res.status(500).json({ message: "Server error: " + error.message });
   }
 }
 
