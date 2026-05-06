@@ -40,33 +40,21 @@ export async function registerUser(req, res) {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
-    const verificationToken = crypto.randomBytes(32).toString("hex");
-    const verificationTokenExpiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24);
 
     const result = await pool.query(
       `INSERT INTO users 
-      (full_name, username, email, phone, password_hash, verification_token, verification_token_expires_at)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
-      RETURNING id, full_name, username, email, phone, role, is_verified, created_at`,
-      [
-        fullName,
-        username,
-        email,
-        phone,
-        passwordHash,
-        verificationToken,
-        verificationTokenExpiresAt,
-      ]
+      (full_name, username, email, phone, password_hash, role)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING id, full_name, username, email, phone, role`,
+      [fullName, username, email, phone, passwordHash, 'user']
     );
 
-    // Generate JWT token for auto-login after registration
     const token = generateToken(result.rows[0]);
 
     return res.status(201).json({
-      message: "User registered successfully. Please verify your email.",
+      message: "User registered successfully",
       token: token,
       user: result.rows[0],
-      verificationToken,
     });
   } catch (error) {
     console.error("Registration error:", error);
